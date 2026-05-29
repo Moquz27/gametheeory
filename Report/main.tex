@@ -23,6 +23,15 @@
 \usepackage{listings}
 \usepackage{float}
 \usepackage{tocloft}
+\usepackage[unicode,hidelinks]{hyperref}
+
+\hypersetup{
+    linktoc=all,
+    pdftitle={Game Theory},
+    pdfauthor={Group 15b},
+    pdfsubject={Linear Algebra Project Report},
+    pdfkeywords={game theory, matrix games, linear programming}
+}
 
 \setlength{\cftbeforesecskip}{2pt}
 \setlength{\cftbeforesubsecskip}{0pt}
@@ -330,6 +339,20 @@ Nguyễn Phương Tâm Anh
 \setstretch{1.4}
 \tableofcontents
 \endgroup
+
+\newpage
+\begingroup
+\small
+\setstretch{1.4}
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+\vspace{0.6cm}
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\endgroup
 % =====================================================
 % PAGE 6: INTRODUCTION
 % =====================================================
@@ -499,9 +522,10 @@ Assume the game is represented by the payoff matrix:
 
 where  \(a_{ij}\) represents the payoff received by Player A when:
 
-- Player A chooses row strategy \(i\)
-
-- Player B chooses column strategy \(j\).
+\begin{itemize}
+    \item Player A chooses row strategy \(i\).
+    \item Player B chooses column strategy \(j\).
+\end{itemize}
 
 
 
@@ -526,11 +550,11 @@ Also, adding the same constant to all payoff values does not change the optimal 
 
 where:
 
-- original game value
-
-- added positive constant
-
-- shifted game value
+\begin{itemize}
+    \item original game value
+    \item added positive constant
+    \item shifted game value
+\end{itemize}
 
 After solving, the original game value will be recovered by:
 
@@ -542,9 +566,10 @@ Player A must determine the mixed strategy vector:
 \noindent\makebox[\linewidth][c]{\(\displaystyle x=(x_1,x_2,\dots,x_m)^T \)}
 where:
 
-- is the probability of choosing row strategy \(i\)
-
-- \(x_i \ge 0\)
+\begin{itemize}
+    \item is the probability of choosing row strategy \(i\)
+    \item \(x_i \ge 0\)
+\end{itemize}
 
 The probability distribution must satisfy:
 \vspace{0.1cm}
@@ -564,11 +589,11 @@ This produces the constraint system:
 
 where:
 
-- \(a'_{ij}\): payoff at row \(i\), column \(j\)
-
-- \(x_i\): probability that Player A chooses row \(i\)
-
-- \(\sum a'_{ij}x_i\): expected payoff of Player A if Player B selects column \(j\).
+\begin{itemize}
+    \item \(a'_{ij}\): payoff at row \(i\), column \(j\)
+    \item \(x_i\): probability that Player A chooses row \(i\)
+    \item \(\sum a'_{ij}x_i\): expected payoff of Player A if Player B selects column \(j\).
+\end{itemize}
 
 The objective is to maximize \( v'\). However, in this form, the variable \(v'\) appears throughout the constraint system, making it difficult to transform the problem into standard LP form.
 
@@ -1393,6 +1418,7 @@ However, the project still has some limitations because it only considers two-pl
 In the future, the project can be extended to non-zero-sum games, multiplayer games, games with incomplete information, or dynamic payoff models, while also using real-world data to improve the accuracy and applicability of the model.
 
 \newpage
+\phantomsection
 \addcontentsline{toc}{section}{References}
 \begin{thebibliography}{99}
 

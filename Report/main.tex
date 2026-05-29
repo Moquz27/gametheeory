@@ -215,7 +215,7 @@ Nguyễn Trần Hoàng Lan & 2551134 \\
 \hline
 Lê Trần Thục Khuê & 2551173 \\
 \hline
-Trần Thu Hiền & 2551126 \\
+Nguyễn Thu Hiền & 2551126 \\
 \hline
 Đào Xuân Quang & 2551144 \\
 \hline
@@ -361,9 +361,9 @@ Nguyễn Phương Tâm Anh
 
 \section{Introduction}
 \subsection{Motivation}
-The study of strategic decision making has become very important in modern mathematics, and in many real world situations, individuals, companies, organizations must make decisions while considering the possible actions of their opponents. 
+The study of strategic decision-making has become very important in modern mathematics, and in many real-world situations, individuals, companies, and organizations must make decisions while considering the possible actions of their opponents. 
 
-Matrix game theory, specifically two-player zero-sum games, provides the ability to analyzing competitive situations and determine optimal strategies. In practice, matrix games have applications in economics, business competition, etc,.. where strategic interaction are significant factors. 
+Matrix game theory, specifically two-player zero-sum games, provides a way to analyze competitive situations and determine optimal strategies. In practice, matrix games have applications in economics, business competition, and other fields where strategic interactions are significant factors. 
 
 This project aims to analyze strategic problems through matrix games and demonstrate how mathematical optimization methods can be used to determine effective strategies in real-world situations.
 
@@ -372,9 +372,9 @@ This project aims to analyze strategic problems through matrix games and demonst
 
 The project was conducted to study and present the applications of matrices in game theory, specifically focusing on two-player zero-sum games. 
 
-First, we focus on analyzing the main concepts such as pure strategy, mixed strategy, saddle point, and the minimax theorem. Also, we aim to explain the mathematical relationship between matrix games and linear programming through the construction of Linear Programming (LP) models. 
+First, we focus on analyzing the main concepts such as pure strategy, mixed strategy, saddle point, and the Minimax Theorem. In addition, we aim to explain the mathematical relationship between matrix games and linear programming through the construction of linear programming (LP) models. 
 
-Second, the group will explain the algorithms used to solve matrix games for both the (2 × 2) case and general case, using Matlab to determine the optimal strategies and the value of the game. 
+Second, the group will explain the algorithms used to solve matrix games for both the \(2 \times 2\) case and the general case, using MATLAB to determine the optimal strategies and the value of the game. 
 
 Finally, we apply game theory to real-world situations and analyze the economic and social significance of optimal strategies.
 
@@ -383,7 +383,7 @@ Finally, we apply game theory to real-world situations and analyze the economic 
 
 The scope of this project is limited to finite matrix games between two players with zero-sum payoffs.  
 
-From an algorithmic perspective, the project focuses on studying methods for solving matrix games through linear programming and applying optimization algorithms to determine the optimal solutions. And to ensure a balance between theory and practical application, these methods will be applied to analyze three real world applicants in the socioeconomic field.
+From an algorithmic perspective, the project focuses on studying methods for solving matrix games through linear programming and applying optimization algorithms to determine optimal solutions. To ensure a balance between theory and practical application, these methods will be applied to analyze three real-world applications in the socioeconomic field.
 
 Finally, topics such as games with incomplete information, multiplayer games, cooperative games, and dynamic game models over time are beyond the scope of this project.
 
@@ -392,11 +392,11 @@ Finally, topics such as games with incomplete information, multiplayer games, co
 \section{Theoretical Background}
 \subsection{Concept of Matrix Games: Two-Player Zero-Sum Games}
 
-Matrix games are mathematical models used to analyze competitive situations between players with conflicting interests. In this model, the outcome is represented by a payoff matrix, where each element \(a_{ij}\) shows the payoff obtained when the first player chooses row strategy \(i\) and the second player chooses column strategy \(j\).
+Matrix games are mathematical models used to analyze competitive situations between players with conflicting interests. In this model, the outcome is represented by a payoff matrix, where each element \(a_{ij}\) shows the payoff obtained when Player A chooses row strategy \(i\) and Player B chooses column strategy \(j\).
 
-In this project, we focus on finite two-player zero-sum games. In this type of game, the total payoff of the two players is always zero, meaning that the gain of one player is exactly the loss of the other. Therefore, the first player aims to maximize their payoff, while the second player aims to minimize it \cite{osborne2004}.
+In this project, we focus on finite two-player zero-sum games. In this type of game, the total payoff of the two players is always zero, meaning that the gain of one player is exactly the loss of the other. Therefore, Player A aims to maximize the payoff, while Player B aims to minimize it \cite{osborne2004}.
 
-The rows of the matrix usually represent the strategies of the first player, while the columns represent the strategies of the second player. A positive value of \(a_{ij}\) indicates an advantage for the first player, whereas a negative value indicates a disadvantage. Matrix games are widely applied in economics, military strategy, and social situations where decision makers must choose optimal strategies under competition and uncertainty.
+The rows of the matrix usually represent the strategies of Player A, while the columns represent the strategies of Player B. A positive value of \(a_{ij}\) indicates an advantage for Player A, whereas a negative value indicates a disadvantage. Matrix games are widely applied in economics, military strategy, and social situations where decision makers must choose optimal strategies under competition and uncertainty.
 
 \subsection{Pure Strategies and Mixed Strategies}
 
@@ -404,15 +404,15 @@ A strategy is a possible course of action that a player can choose in a game. In
 
 A pure strategy means that a player always chooses one fixed action. It is simple and easy to analyze, but it can also make the player's behavior predictable and exploitable by the opponent. A mixed strategy means that a player chooses among several actions according to assigned probabilities. This helps reduce predictability, since the player does not always repeat the same action. Each probability must be non-negative, and the total probability must be equal to 1.
 
-A mixed strategy of Player A can be represented as a probability vector over all available pure strategies. Suppose Player A has (n) strategies. Then the mixed strategy is given by
+A mixed strategy of Player A can be represented as a probability vector over all available pure strategies. Suppose Player A has \(n\) strategies. Then the mixed strategy is given by
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle x = (x_1, x_2, \dots, x_n)^T\)}
 
-where \(x_i\) denotes the probability that Player A chooses strategy (i). Therefore, the probabilities must satisfy
+Here, \(x_i\) denotes the probability that Player A chooses strategy \(i\). Therefore, the probabilities must satisfy
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \ x_i \ge 0, \quad \sum_{i=1}^{n} x_i = 1 \)} 
 
-\vspace{0.1CM}
+\vspace{0.1cm}
 This means that each strategy is assigned a non-negative probability, and the total probability over all strategies must be equal to one \cite{karlin1959}.
 
 
@@ -420,11 +420,11 @@ This means that each strategy is assigned a non-negative probability, and the to
 
 A saddle point is an important concept in matrix games, used to determine whether a game has an optimal pure strategy solution.
 
-To determine a saddle point, two values are commonly used: \(\max_i \min_j a_{ij})\) and \((\min_j \max_i a_{ij})\). Respectively, these values are called the maximin value and the minimax value.
+To determine a saddle point, two values are commonly used: \(\max_i \min_j a_{ij}\) and \(\min_j \max_i a_{ij}\). These values are called the maximin value and the minimax value, respectively.
 
-Maximin is the strategy principle of Player A, who aims to maximize the minimum payoff that can be guaranteed. It is found by taking the minimum value of each row and then choosing the largest value among them.
+The maximin principle is the strategy principle of Player A, who aims to maximize the minimum payoff that can be guaranteed. It is found by taking the minimum value of each row and then choosing the largest value among them.
 
-Minimax is the strategy principle of Player B, who aims to minimize the maximum possible payoff of Player A. It is found by taking the maximum value of each column and then choosing the smallest value among them.
+The minimax principle is the strategy principle of Player B, who aims to minimize the maximum possible payoff of Player A. It is found by taking the maximum value of each column and then choosing the smallest value among them.
 
 If the maximin value and the minimax value are equal, the game has a saddle point. This value is called the value of the game and also the value of the saddle point. In this case, the saddle point represents a stable solution for both players: Player A can guarantee a safe minimum payoff regardless of Player B's choice, while Player B can limit the maximum payoff that Player A may obtain. Therefore, neither player has an incentive to deviate from the corresponding pure strategy solution \cite{murthy2007}.
 
@@ -480,9 +480,9 @@ Suppose \(A\) is an \(m \times n\) payoff matrix, where Player A has \(m\) strat
 \max_x \min_y x^T A y = \min_y \max_x x^T A y = v
 \]
 
-Where \(v\) is the value of the game \cite{thie2008}.
+Here, \(v\) is the value of the game \cite{thie2008}.
 
-To understand this formula more clearly, each component should be interpreted separately.  The vector \(x\) represents the mixed strategy of Player A, and \(x^T\) is the transpose of \(x\), while \(y\) represents the mixed strategy of Player B. Both of them are probability vectors, which means their elements are non-negative and the sum of their elements is equal to one. 
+To understand this formula more clearly, each component should be interpreted separately. The vector \(x\) represents the mixed strategy of Player A, and \(x^T\) is the transpose of \(x\), while \(y\) represents the mixed strategy of Player B. Both of them are probability vectors, which means their elements are non-negative and the sum of their elements is equal to one. 
 
 The expression \(x^T A y\) represents the expected payoff received by Player A when Player A uses the mixed strategy \(x\) and Player B uses the mixed strategy \(y\).
 
@@ -498,19 +498,19 @@ The Minimax Theorem is not only important in game theory, but also has a close r
 
 \section{Mathematical Model and Algorithm}
 \subsection{Relationship Between Matrix Games and Linear Programming}
-In matrix game theory, the problem of finding optimal strategies has a close relationship with Linear Programming (LP). This relationship originates directly from the Minimax Theorem. However, most real-world problems do not have a saddle point, so players must use mixed strategies, represented by the probability vectors \(x\) and \(y\), such that:
+In matrix game theory, the problem of finding optimal strategies has a close relationship with linear programming (LP). This relationship originates directly from the Minimax Theorem. However, most real-world problems do not have a saddle point, so players must use mixed strategies, represented by the probability vectors \(x\) and \(y\), such that:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle x_i \ge 0 \quad \text{and} \quad y_j \ge 0 \)}
 
-and 
+Their total probabilities also satisfy:
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle\sum x_i = 1 \quad \text{and} \quad \sum y_j = 1 \)}
+\noindent\makebox[\linewidth][c]{\(\displaystyle\sum_i x_i = 1 \quad \text{and} \quad \sum_j y_j = 1 \)}
 
-These probability conditions are linear constraints. Therefore, the problem of finding optimal strategies can be formulated as a Linear Programming problem \cite{thie2008}.
+These probability conditions are linear constraints. Therefore, the problem of finding optimal strategies can be formulated as a linear programming problem \cite{thie2008}.
 
-The objective of both players is to optimize the value of the game \(v\), which is determined by the expected payoff function. For Player A, the objective is to find the strategy vector \(x\) to maximize \(v\) (Maximin) and for Player B, the objective is to find the strategy vector \(y\) to minimize \(v\) (Minimax).
+The objective of both players is to optimize the value of the game \(v\), which is determined by the expected payoff function. For Player A, the objective is to find the strategy vector \(x\) to maximize \(v\) (maximin), and for Player B, the objective is to find the strategy vector \(y\) to minimize \(v\) (minimax).
 
-The transformation into a linear programming problem allows us to apply optimization methods such as the Simplex algorithm or built-in solver functions in Matlab to solve larger matrix game problems efficiently in practice.
+The transformation into a linear programming problem allows us to apply optimization methods such as the Simplex algorithm or built-in solver functions in MATLAB to solve larger matrix game problems efficiently in practice.
 
 \subsection{Equivalent Linear Programming Formulation}
 
@@ -520,7 +520,7 @@ Assume the game is represented by the payoff matrix:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle A=(a_{ij}) \)}
 
-where  \(a_{ij}\) represents the payoff received by Player A when:
+Here, \(a_{ij}\) represents the payoff received by Player A when:
 
 \begin{itemize}
     \item Player A chooses row strategy \(i\).
@@ -530,30 +530,30 @@ where  \(a_{ij}\) represents the payoff received by Player A when:
 
 
 
-In practice, the payoff matrix may contain negative values. This creates difficulties when transforming the problem into a Linear Programming (LP) model, especially in later variable transformations involving division by the game value \(v'\).
+In practice, the payoff matrix may contain negative values. This creates difficulties when transforming the problem into a linear programming (LP) model, especially in later variable transformations involving division by the game value \(v'\).
 
 To fix this issue, a positive constant \(c\) is added to every element of the matrix so that the smallest value in the matrix becomes positive:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle a'_{ij}=a_{ij}+c \)}
 
 
-The purposes of this transformation is to ensure all elements of the new matrix are positive, improving numerical stability during optimization, avoiding division by zero or negative values.
+The purpose of this transformation is to ensure that all elements of the new matrix are positive, improve numerical stability during optimization, and avoid division by zero or negative values.
 
 After the transformation, the new matrix becomes:
 
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle A'=(a'_{ij}) \)}
 
-Also, adding the same constant to all payoff values does not change the optimal strategies of the players because every payoff increases equally. Only the value of the game changes:
+Moreover, adding the same constant to all payoff values does not change the optimal strategies of the players because every payoff increases equally. Only the value of the game changes:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle v'=v+c \)}
 
-where:
+Here:
 
 \begin{itemize}
-    \item original game value
-    \item added positive constant
-    \item shifted game value
+    \item \(v\): original game value
+    \item \(c\): added positive constant
+    \item \(v'\): shifted game value
 \end{itemize}
 
 After solving, the original game value will be recovered by:
@@ -564,10 +564,10 @@ After solving, the original game value will be recovered by:
 Player A must determine the mixed strategy vector:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle x=(x_1,x_2,\dots,x_m)^T \)}
-where:
+Here:
 
 \begin{itemize}
-    \item is the probability of choosing row strategy \(i\)
+    \item \(x_i\): probability of choosing row strategy \(i\)
     \item \(x_i \ge 0\)
 \end{itemize}
 
@@ -577,7 +577,7 @@ The probability distribution must satisfy:
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}x_i=1 \)}
 
 \vspace{0.1cm}
-According to the Maximin principle, Player A aims to maximize the minimum payoff that can be guaranteed.
+According to the maximin principle, Player A aims to maximize the minimum payoff that can be guaranteed.
 
 More specifically, let \(v'\) denote the shifted game value. Then, regardless of which column strategy Player B chooses, the expected payoff of Player A must not be smaller than \(v'\).
 
@@ -587,39 +587,39 @@ This produces the constraint system:
 \noindent\makebox[\linewidth][c]{\(\displaystyle  \sum_{i=1}^{m}a'_{ij}x_i \ge v'
 \quad \forall j=1,\dots,n \)}
 
-where:
+Here:
 
 \begin{itemize}
     \item \(a'_{ij}\): payoff at row \(i\), column \(j\)
     \item \(x_i\): probability that Player A chooses row \(i\)
-    \item \(\sum a'_{ij}x_i\): expected payoff of Player A if Player B selects column \(j\).
+    \item \(\sum_{i=1}^{m}a'_{ij}x_i\): expected payoff of Player A if Player B selects column \(j\).
 \end{itemize}
 
-The objective is to maximize \( v'\). However, in this form, the variable \(v'\) appears throughout the constraint system, making it difficult to transform the problem into standard LP form.
+The objective is to maximize \(v'\). However, in this form, the variable \(v'\) appears throughout the constraint system, making it difficult to transform the problem into standard LP form.
 
 Therefore, the following variable substitution is introduced:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle X_i=\frac{x_i}{v'} \)}
 
-This transformation eliminates the direct dependence on \(v'\) and converts the Maximin problem into a simpler linear inequality system. \cite{thie2008}
+This transformation eliminates the direct dependence on \(v'\) and converts the maximin problem into a simpler linear inequality system. \cite{thie2008}
 
 After substitution, the problem becomes:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \text{Minimize } \sum_{i=1}^{m}X_i \)}
 
 
-subject to:
+Subject to:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}a'_{ij}X_i \ge 1 \)} 
 
 \vspace{0.1cm}
-The transformation from ``maximize \(v'\)'' to ``minimize \(\sum X_i\)'' is derived as follows.
+The transformation from ``maximize \(v'\)'' to ``minimize \(\sum_{i=1}^{m} X_i\)'' is derived as follows.
 
 From:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle X_i=\frac{x_i}{v'} \)}
 
-we obtain:
+We obtain:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle x_i=v'X_i \)}
 
@@ -628,7 +628,7 @@ Substituting into the probability normalization condition:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}x_i=1\)}
 
-gives:
+This gives:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle v'\sum_{i=1}^{m}X_i=1\)}
 
@@ -641,13 +641,13 @@ This means that when \(v'\) increases, \(\frac1{v'}\) decreases. Hence:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \max(v') \iff \min\left(\frac1{v'}\right)\)}
 
-and since:
+The equality below gives the equivalent objective:
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle \frac1{v'}=\sum X_i\)}
+\noindent\makebox[\linewidth][c]{\(\displaystyle \frac1{v'}=\sum_{i=1}^{m}X_i\)}
 
-the problem becomes equivalent to minimizing:
+Therefore, the problem becomes equivalent to minimizing:
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum X_i\)}
+\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}X_i\)}
 
 After solving the LP model, the optimal mixed strategy of Player A is recovered by normalization:
 
@@ -661,7 +661,7 @@ The shifted game value is:
 \frac1
 {\sum_{i=1}^{m}X_i}\)}
 
-and the original game value is:
+The original game value is:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle v=v'-c\)}
 
@@ -671,13 +671,13 @@ Similarly, Player B constructs the mixed strategy vector:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle y=(y_1,y_2,\dots,y_n)^T\)}
 
-where:
+Here:
 \begin{itemize}
     \item \(y_j\) is the probability of choosing column strategy \(j\),
     \item \(y_j \ge 0\),
     \item the probabilities sum to 1.
 \end{itemize}
-Unlike Player A, Player B aims to minimize Player A’s payoff according to the Minimax principle.
+Unlike Player A, Player B aims to minimize Player A's payoff according to the minimax principle.
 
 Therefore, Player B must ensure that regardless of which row Player A selects, the expected payoff of Player A does not exceed a certain limit.
 
@@ -685,13 +685,13 @@ This leads to:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}y_j \le v'\)}
 
-where:
+Here:
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum a'_{ij}y_j\)}
+\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}y_j\)}
 
-represents the expected payoff of Player A when Player A selects row \(i\).
+This represents the expected payoff of Player A when Player A selects row \(i\).
 
-Similar to Player A’s formulation, a variable transformation is applied. 
+Similar to Player A's formulation, a variable transformation is applied. 
 
 Define the transformed variables:
 
@@ -703,24 +703,24 @@ After substitution, the LP model for Player B becomes:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \text{Maximize } \sum_{j=1}^{n}Y_j\)}
 
-subject to:
+Subject to:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}Y_j \le 1\) \cite{thie2008}} 
 
-with:
+With:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle Y_j \ge 0\)}
 
-The transformation follows the same logic as Player A’s formulation. Since:
+The transformation follows the same logic as Player A's formulation. The normalization condition is:
 \vspace{0.1cm}
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}y_j=1\)}
 
-and:
+The substitution is:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle y_j=v'Y_j\)}
 
-we obtain:
+Thus, we obtain:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle v'\sum_{j=1}^{n}Y_j=1\)}
 
@@ -729,7 +729,7 @@ Therefore:
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}Y_j=\frac1{v'}\)}
 
 \vspace{0.1cm}
-So, minimizing the upper bound \(v'\) is equivalent to maximizing:
+Therefore, minimizing the upper bound \(v'\) is equivalent to maximizing:
 \vspace{0.1cm}
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}Y_j\)}
@@ -741,9 +741,9 @@ After solving the optimization system, the optimal mixed strategy probabilities 
 {\sum_{k=1}^{n}Y_k}\)}
 
 \vspace{0.15cm}
-Through the Linear Programming formulation, the matrix game problem can be transformed into a linear optimization system that can be solved efficiently by computers, even for large matrices without saddle points.
+Through the linear programming formulation, the matrix game problem can be transformed into a linear optimization system that can be solved efficiently by computers, even for large matrices without saddle points.
 
-\subsection{Algorithm for Solving 2$\times$2 Games and General Cases}
+\subsection{Algorithm for Solving \(2 \times 2\) Games and General Cases}
 
 \subsubsection{General Structure of the Algorithm}
 
@@ -753,7 +753,7 @@ After obtaining these two values, the algorithm compares the maximin and minimax
 
 Otherwise, if the maximin and minimax values are different, the game has no saddle point. In this situation, pure strategies are not sufficient to guarantee an optimal result. Therefore, mixed strategies must be used \cite{murthy2007}. 
 
-\subsubsection{Algorithm for Solving 2x2 Matrix Games}
+\subsubsection{Algorithm for Solving \(2 \times 2\) Matrix Games}
 
 A two-player zero-sum game in which each player has two strategies can be represented by the following payoff matrix:
 
@@ -773,7 +773,7 @@ A2 & c & d
 
 In this matrix, the rows represent the strategies of Player A, while the columns represent the strategies of Player B. For a \(2 \times 2\) game, the algorithm first checks whether a saddle point exists by comparing the maximin and minimax values. If a saddle point exists, the optimal pure strategies and the value of the game can be determined directly. If no saddle point exists, both players need to use mixed strategies.
 
-Assume that Player A chooses the first row with probability p and the second row with probability 1-p. Player A chooses p so that Player B becomes indifferent between choosing the first column and the second column:
+Assume that Player A chooses the first row with probability \(p\) and the second row with probability \(1-p\). Player A chooses \(p\) so that Player B becomes indifferent between choosing the first column and the second column:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle pa + (1-p)c = pb + (1-p)d \)}
 
@@ -830,15 +830,15 @@ For the \(2 \times 2\) case, this value can also be calculated directly using th
 \noindent\makebox[\linewidth][c]{\(\displaystyle v = \frac{ad-bc}{a-b-c+d} \)   \cite{thie2008}}
 
 
-\subsubsection{Algorithm for General M x N Matrix Games}
+\subsubsection{Algorithm for General \(m \times n\) Matrix Games}
 
-The direct formula used for the 2x2 case is not suitable for matrix games with larger dimensions. Therefore, Linear Programming is required. In the general case, Player A may have m strategies and Player B may have n strategies. The payoff matrix can be written as:
+The direct formula used for the \(2 \times 2\) case is not suitable for matrix games with larger dimensions. Therefore, linear programming is required. In the general case, Player A may have \(m\) strategies and Player B may have \(n\) strategies. The payoff matrix can be written as:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle A = (a_{ij})_{m \times n} \)}
 
-The general algorithm still follows the same initial structure as the 2x2 case. First, the minimum value of each row, the maximum value of each column, the maximin value, and the minimax value are computed. Then, the algorithm checks whether the game has a saddle point.
+The general algorithm still follows the same initial structure as the \(2 \times 2\) case. First, the minimum value of each row, the maximum value of each column, the maximin value, and the minimax value are computed. Then, the algorithm checks whether the game has a saddle point.
 
-If the maximin value is equal to the minimax value, the game has a saddle point and can be solved using pure strategies. If the maximin value is different from the minimax value, the game has no saddle point. For a general \(m \times n\) game, the optimal mixed strategies are found using Linear Programming.
+If the maximin value is equal to the minimax value, the game has a saddle point and can be solved using pure strategies. If the maximin value is different from the minimax value, the game has no saddle point. For a general \(m \times n\) game, the optimal mixed strategies are found using linear programming.
 
 \section{Results, Deliverables, and Applications}
 \subsection{Experimental Results as Real-World Applications}
@@ -896,7 +896,7 @@ A6 & 5 & 1 & 2 & 3 & 1 & 0
 \end{array}
 \]
 \endgroup
-In general, when Country A focuses on an area that Country B does not protect, the payoff is positive because A can exploit a policy gap and gain an advantage. Conversely, when Country B protects the same area that Country A attacks, the payoff is usually negative because A faces defensive measures such as industrial subsidies, export controls, supply chain reinforcement, or domestic market stabilization.
+In general, when Country A focuses on an area that Country B does not protect, the payoff is positive because Country A can exploit a policy gap and gain an advantage. Conversely, when Country B protects the same area that Country A attacks, the payoff is usually negative because Country A faces defensive measures such as industrial subsidies, export controls, supply chain reinforcement, or domestic market stabilization.
 
 For combined strategies involving two areas, the payoff depends on how much the attack scope of Country A overlaps with the defense scope of Country B. If Country B leaves important pillars such as Alpha or Bravo unprotected, Country A can obtain a high payoff. If both countries allocate resources to corresponding areas, the payoff tends to move closer to $0$, representing a relative balance. Therefore, the matrix does not simply describe winning or losing, but also reflects the trade-off between policy effectiveness, resource dispersion, and the predictability of the opponent's actions.
 
@@ -904,7 +904,7 @@ The computational results show that the maximin value is $0$ and the minimax val
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle x=[0,\ 0,\ 0,\ 0.4167,\ 0.3333,\ 0.25] \)}
 
-This means that Country A should not focus on only one single area. Instead, it should prioritize combined strategies: Alpha-Bravo with probability $41.67\%$, Alpha-Charlie with probability $33.33\%$, and Bravo-Charlie with probability $25\%$. Alpha-Bravo has the highest probability because high technology and supply chains are the two most strategically valuable areas.
+This means that Country A should not focus on a single area. Instead, it should prioritize combined strategies: Alpha-Bravo with probability $41.67\%$, Alpha-Charlie with probability $33.33\%$, and Bravo-Charlie with probability $25\%$. Alpha-Bravo has the highest probability because high technology and supply chains are the two most strategically valuable areas.
 
 The optimal mixed strategy of Country B is
 
@@ -913,17 +913,17 @@ The optimal mixed strategy of Country B is
 
 This means that Country B should also avoid defending only one fixed pillar. Instead, it should distribute its defensive resources among Alpha-Bravo, Alpha-Charlie, and Bravo-Charlie. The value of the game is
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle V=1.0833 \)}
+\noindent\makebox[\linewidth][c]{\(\displaystyle v=1.0833 \)}
 
 This indicates that Country A has a slight long-term advantage if it allocates its policy resources properly. From an economic and social perspective, the model shows that an effective strategy is not to concentrate completely on one pillar, but to flexibly allocate resources among technology, supply chains, and social influence in order to optimize benefits and reduce policy risks.
 
 \subsubsection{Sidewalk Encroachment Control in Urban Areas}
 
-In this scenario, we consider a social conflict between Urban Management Authority A and informal street vendors B in a densely populated urban area. The authority wants to maintain public order, reduce congestion, and preserve urban hygiene, while the street vendors want to continue selling on the sidewalk in order to maximize their income. The game cycle is counted weekly, and each side cannot change its strategy until the end of the week.
+In this scenario, we consider a social conflict between Urban Management Authority A and informal street vendors (Group B) in a densely populated urban area. The authority wants to maintain public order, reduce congestion, and preserve urban hygiene, while the street vendors want to continue selling on the sidewalk in order to maximize their income. The game cycle is counted weekly, and each side cannot change its strategy until the end of the week.
 
-Urban Management Authority A has three strategies. A1 is giving warnings and conducting one regular inspection per day. A2 is issuing fines and conducting continuous patrols by shifts throughout the day. A3 is coordinating multiple departments, conducting one large-scale weekly sweep, and imposing heavy fines. The informal vendors B have four strategies. B1 is temporary compliance, B2 is selling during low-inspection hours, B3 is leaving during inspection and returning afterward, and B4 is coordinating as a group to avoid inspection and frequently changing locations.
+Urban Management Authority A has three strategies. A1 is giving warnings and conducting one regular inspection per day. A2 is issuing fines and conducting continuous patrols by shifts throughout the day. A3 is coordinating multiple departments, conducting one large-scale weekly sweep, and imposing heavy fines. The informal vendors in Group B have four strategies. B1 is temporary compliance, B2 is selling during low-inspection hours, B3 is leaving during inspection and returning afterward, and B4 is coordinating as a group to avoid inspection and frequently changing locations.
 
-The payoff is calculated from the perspective of Urban Management Authority A. A positive value represents effective public-order control after subtracting operating costs. A negative value represents weak control, high cost, or successful avoidance by group B.
+The payoff is calculated from the perspective of Urban Management Authority A. A positive value represents effective public-order control after subtracting operating costs. A negative value represents weak control, high cost, or successful avoidance by Group B.
 
 \begingroup
 \small
@@ -940,7 +940,7 @@ A3 & -1 & -3 & -3 & 6
 \]
 \endgroup
 
-When group B only complies temporarily, simple measures can still produce positive payoffs. However, using A3 in this case is inefficient because the cost of large-scale sweeps and heavy punishment is higher than necessary, resulting in a payoff of $-1$. When group B avoids inspection as an organized group and changes locations frequently, A1 and A2 perform poorly with negative payoffs, while A3 achieves a payoff of $6$ because a strong measure is more suitable for organized behavior. For intermediate behaviors such as selling during low-inspection hours or returning after inspection, A2 is a more balanced choice because it creates continuous pressure without being excessively costly.
+When Group B only complies temporarily, simple measures can still produce positive payoffs. However, using A3 in this case is inefficient because the cost of large-scale sweeps and heavy punishment is higher than necessary, resulting in a payoff of $-1$. When Group B avoids inspection as an organized group and changes locations frequently, A1 and A2 perform poorly with negative payoffs, while A3 achieves a payoff of $6$ because a strong measure is more suitable for organized behavior. For intermediate behaviors such as selling during low-inspection hours or returning after inspection, A2 is a more balanced choice because it creates continuous pressure without being excessively costly.
 
 From the matrix, the maximin value is $-3$ and the minimax value is $1$, so the game has no saddle point. Therefore, the authority should not use one fixed strategy, but should apply a mixed strategy: A2 with probability about $69.23\%$ and A3 with probability about $30.77\%$, while A1 should not be the main long-term strategy. Group B will mainly choose B3 with probability about $69.23\%$ and B4 with probability about $30.77\%$. The value of the game is approximately $-0.2308$, showing that sidewalk encroachment remains difficult to control if informal vendors continuously change their behavior.
 
@@ -1409,7 +1409,7 @@ Overall, the system successfully integrates mathematical game theory with numeri
 
 In this project, our group studied the application of matrices in game theory, focusing on two-player zero-sum games. Through concepts such as payoff matrices, pure strategies, mixed strategies, saddle points, and the Minimax Theorem, we can see how linear algebra can be used to analyze and solve strategic competitive situations.
 
-In addition to the theoretical part, the group developed a Matlab program to check for saddle points, calculate optimal strategies, and determine the value of the game. The program can handle both cases where a pure strategy solution exists and cases where mixed strategies are required through linear programming. 
+In addition to the theoretical part, the group developed a MATLAB program to check for saddle points, calculate optimal strategies, and determine the value of the game. The program can handle both cases where a pure strategy solution exists and cases where mixed strategies are required through linear programming. 
 
 Moreover, the model was applied to three real-world scenarios: profit competition between two companies, macroeconomic competition between two countries, and the control of sidewalk encroachment in urban areas.
 

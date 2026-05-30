@@ -400,13 +400,13 @@ A strategy is a possible course of action that a player can choose in a game. In
 A pure strategy means that a player always chooses one fixed action. It is simple and easy to analyze, but it can also make the player's behavior predictable and exploitable by the opponent. A mixed strategy means that a player chooses among several actions according to assigned probabilities. This helps reduce predictability, since the player does not always repeat the same action. Each probability must be non-negative, and the total probability must be equal to 1.
 
 A mixed strategy of Player A can be represented as a probability vector over all available pure strategies. Suppose Player A has \(n\) strategies. Then the mixed strategy is given by
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x = (x_1, x_2, \dots, x_n)^T\)}
-
+\[
+x = (x_1, x_2, \dots, x_n)^T
+\]
 Here, \(x_i\) denotes the probability that Player A chooses strategy \(i\). Therefore, the probabilities must satisfy
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \ x_i \ge 0, \quad \sum_{i=1}^{n} x_i = 1 \)} 
-
+\[
+\ x_i \ge 0, \quad \sum_{i=1}^{n} x_i = 1
+\]
 \vspace{0.1cm}
 This means that each strategy is assigned a non-negative probability, and the total probability over all strategies must be equal to one \cite{karlin1959}.
 
@@ -443,19 +443,19 @@ A2 & 5 & 2
 \endgroup
 
 Consider each row: 
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \min(A1)=1,\ \min(A2)=2, \ \max(1,2)=2\ \)}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \Rightarrow \text{maximin}=2  \)}
-
-
+\[
+\min(A1)=1,\ \min(A2)=2, \ \max(1,2)=2
+\]
+\[
+\Rightarrow \text{maximin}=2
+\]
 Consider each column: 
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \max(B1)=5, \ \max(B2)=2,\ \min(5,2)=2\)}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \Rightarrow \text{minimax}=2\)}
-
-
+\[
+\max(B1)=5, \ \max(B2)=2,\ \min(5,2)=2
+\]
+\[
+\Rightarrow \text{minimax}=2
+\]
 Because maximin = minimax, the matrix above has a saddle point with value 2.
 
 Saddle points help simplify the analysis of games because players do not need to use probabilities to choose strategies.
@@ -470,11 +470,9 @@ The Minimax Theorem is one of the fundamental results in game theory. Introduced
 In this type of game, if a saddle point exists, both players can use pure strategies to reach the optimal result. However, many games do not have a saddle point, so using a fixed pure strategy may become predictable and exploitable. Therefore, mixed strategies are needed. Instead of always choosing one fixed action, each player assigns probabilities to their available strategies.
 
 Suppose \(A\) is an \(m \times n\) payoff matrix, where Player A has \(m\) strategies and Player B has \(n\) strategies. Let \(x\) be the mixed strategy vector of Player A and \(y\) be the mixed strategy vector of Player B. The Minimax Theorem states that every finite two-player zero-sum game has a pair of optimal mixed strategies such that
-
 \[
 \max_x \min_y x^T A y = \min_y \max_x x^T A y = v
 \]
-
 Here, \(v\) is the value of the game \cite{thie2008}.
 
 To understand this formula more clearly, each component should be interpreted separately. The vector \(x\) represents the mixed strategy of Player A, and \(x^T\) is the transpose of \(x\), while \(y\) represents the mixed strategy of Player B. Both of them are probability vectors, which means their elements are non-negative and the sum of their elements is equal to one. 
@@ -494,13 +492,13 @@ The Minimax Theorem is not only important in game theory, but also has a close r
 \section{Mathematical Model and Algorithm}
 \subsection{Relationship Between Matrix Games and Linear Programming}
 In matrix game theory, the problem of finding optimal strategies has a close relationship with linear programming (LP). This relationship originates directly from the Minimax Theorem. However, most real-world problems do not have a saddle point, so players must use mixed strategies, represented by the probability vectors \(x\) and \(y\), such that:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x_i \ge 0 \quad \text{and} \quad y_j \ge 0 \)}
-
+\[
+x_i \ge 0 \quad \text{and} \quad y_j \ge 0
+\]
 Their total probabilities also satisfy:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle\sum_i x_i = 1 \quad \text{and} \quad \sum_j y_j = 1 \)}
-
+\[
+\sum_i x_i = 1 \quad \text{and} \quad \sum_j y_j = 1
+\]
 These probability conditions are linear constraints. Therefore, the problem of finding optimal strategies can be formulated as a linear programming problem \cite{thie2008}.
 
 The objective of both players is to optimize the value of the game \(v\), which is determined by the expected payoff function. For Player A, the objective is to find the strategy vector \(x\) to maximize \(v\) (maximin), and for Player B, the objective is to find the strategy vector \(y\) to minimize \(v\) (minimax).
@@ -512,9 +510,9 @@ The transformation into a linear programming problem allows us to apply optimiza
 \subsubsection{Payoff Matrix Shifting}
 
 Assume the game is represented by the payoff matrix:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle A=(a_{ij}) \)}
-
+\[
+A=(a_{ij})
+\]
 Here, \(a_{ij}\) represents the payoff received by Player A when:
 
 \begin{itemize}
@@ -528,21 +526,19 @@ Here, \(a_{ij}\) represents the payoff received by Player A when:
 In practice, the payoff matrix may contain negative values. This creates difficulties when transforming the problem into a linear programming (LP) model, especially in later variable transformations involving division by the game value \(v'\).
 
 To fix this issue, a positive constant \(c\) is added to every element of the matrix so that the smallest value in the matrix becomes positive:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle a'_{ij}=a_{ij}+c \)}
-
-
+\[
+a'_{ij}=a_{ij}+c
+\]
 The purpose of this transformation is to ensure that all elements of the new matrix are positive, improve numerical stability during optimization, and avoid division by zero or negative values.
 
 After the transformation, the new matrix becomes:
-
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle A'=(a'_{ij}) \)}
-
+\[
+A'=(a'_{ij})
+\]
 Moreover, adding the same constant to all payoff values does not change the optimal strategies of the players because every payoff increases equally. Only the value of the game changes:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v'=v+c \)}
-
+\[
+v'=v+c
+\]
 Here:
 
 \begin{itemize}
@@ -552,15 +548,16 @@ Here:
 \end{itemize}
 
 After solving, the equation: 
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=v'-c \)  }
-
+\[
+v=v'-c
+\]
 will recover the original game value \cite{murthy2007}.
 \subsubsection{Linear Programming Model for Player A}
 
 Player A must determine the mixed strategy vector:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x=(x_1,x_2,\dots,x_m)^T \)}
+\[
+x=(x_1,x_2,\dots,x_m)^T
+\]
 Here:
 
 \begin{itemize}
@@ -570,9 +567,9 @@ Here:
 
 The probability distribution must satisfy:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}x_i=1 \)}
-
+\[
+\sum_{i=1}^{m}x_i=1
+\]
 \vspace{0.1cm}
 According to the maximin principle, Player A aims to maximize the minimum payoff that can be guaranteed.
 
@@ -580,10 +577,10 @@ More specifically, let \(v'\) denote the shifted game value. Then, regardless of
 
 This produces the constraint system:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle  \sum_{i=1}^{m}a'_{ij}x_i \ge v'
-\quad \forall j=1,\dots,n \)}
-
+\[
+\sum_{i=1}^{m}a'_{ij}x_i \ge v'
+\quad \forall j=1,\dots,n
+\]
 Here:
 
 \begin{itemize}
@@ -595,79 +592,77 @@ Here:
 The objective is to maximize \(v'\). However, in this form, the variable \(v'\) appears throughout the constraint system, making it difficult to transform the problem into standard LP form.
 
 Therefore, the following variable substitution is introduced:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle X_i=\frac{x_i}{v'} \)}
-
+\[
+X_i=\frac{x_i}{v'}
+\]
 This transformation eliminates the direct dependence on \(v'\) and converts the maximin problem into a simpler linear inequality system. \cite{thie2008}
 
 After substitution, the problem becomes:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \text{Minimize } \sum_{i=1}^{m}X_i \)}
-
-
+\[
+\text{Minimize } \sum_{i=1}^{m}X_i
+\]
 Subject to:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}a'_{ij}X_i \ge 1 \)} 
-
+\[
+\sum_{i=1}^{m}a'_{ij}X_i \ge 1
+\]
 \vspace{0.1cm}
 The transformation from ``maximize \(v'\)'' to ``minimize \(\sum_{i=1}^{m} X_i\)'' is derived as follows.
 
 From:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle X_i=\frac{x_i}{v'} \)}
-
+\[
+X_i=\frac{x_i}{v'}
+\]
 We obtain:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x_i=v'X_i \)}
-
-
+\[
+x_i=v'X_i
+\]
 Substituting into the probability normalization condition:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}x_i=1\)}
-
+\[
+\sum_{i=1}^{m}x_i=1
+\]
 This gives:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v'\sum_{i=1}^{m}X_i=1\)}
-
+\[
+v'\sum_{i=1}^{m}X_i=1
+\]
 Therefore:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}X_i=\frac1{v'}\)}
-
+\[
+\sum_{i=1}^{m}X_i=\frac1{v'}
+\]
 \vspace{0.1cm}
 This means that when \(v'\) increases, \(\frac1{v'}\) decreases. Hence:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \max(v') \iff \min\left(\frac1{v'}\right)\)}
-
+\[
+\max(v') \iff \min\left(\frac1{v'}\right)
+\]
 The equality below gives the equivalent objective:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \frac1{v'}=\sum_{i=1}^{m}X_i\)}
-
+\[
+\frac1{v'}=\sum_{i=1}^{m}X_i
+\]
 Therefore, the problem becomes equivalent to minimizing:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{i=1}^{m}X_i\)}
-
+\[
+\sum_{i=1}^{m}X_i
+\]
 After solving the LP model, the optimal mixed strategy of Player A is recovered by normalization:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x_i=
+\[
+x_i=
 \frac{X_i}
-{\sum_{k=1}^{m}X_k}\)}
-
+{\sum_{k=1}^{m}X_k}
+\]
 The shifted game value is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v'=
+\[
+v'=
 \frac1
-{\sum_{i=1}^{m}X_i}\)}
-
+{\sum_{i=1}^{m}X_i}
+\]
 The original game value is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=v'-c\)}
-
+\[
+v=v'-c
+\]
 \subsubsection{Linear Programming Model for Player B}
 
 Similarly, Player B constructs the mixed strategy vector:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle y=(y_1,y_2,\dots,y_n)^T\)}
-
+\[
+y=(y_1,y_2,\dots,y_n)^T
+\]
 Here:
 \begin{itemize}
     \item \(y_j\) is the probability of choosing column strategy \(j\),
@@ -679,64 +674,64 @@ Unlike Player A, Player B aims to minimize Player A's payoff according to the mi
 Therefore, Player B must ensure that regardless of which row Player A selects, the expected payoff of Player A does not exceed a certain limit.
 
 This leads to:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}y_j \le v'\)}
-
+\[
+\sum_{j=1}^{n}a'_{ij}y_j \le v'
+\]
 Here:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}y_j\)}
-
+\[
+\sum_{j=1}^{n}a'_{ij}y_j
+\]
 This represents the expected payoff of Player A when Player A selects row \(i\).
 
 Similar to Player A's formulation, a variable transformation is applied. 
 
 Define the transformed variables:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle Y_j=\frac{y_j}{v'}\)}
-
+\[
+Y_j=\frac{y_j}{v'}
+\]
 \vspace{0.1cm}
 After substitution, the LP model for Player B becomes:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \text{Maximize } \sum_{j=1}^{n}Y_j\)}
-
+\[
+\text{Maximize } \sum_{j=1}^{n}Y_j
+\]
 Subject to:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}a'_{ij}Y_j \le 1\) \cite{thie2008}} 
-
+\[
+\sum_{j=1}^{n}a'_{ij}Y_j \le 1
+\] \cite{thie2008}
 With:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle Y_j \ge 0\)}
-
+\[
+Y_j \ge 0
+\]
 The transformation follows the same logic as Player A's formulation. The normalization condition is:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}y_j=1\)}
-
+\[
+\sum_{j=1}^{n}y_j=1
+\]
 The substitution is:
 \[
 y_j=v'Y_j
 \]
 Thus, we obtain:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v'\sum_{j=1}^{n}Y_j=1\)}
-
+\[
+v'\sum_{j=1}^{n}Y_j=1
+\]
 Therefore:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}Y_j=\frac1{v'}\)}
-
+\[
+\sum_{j=1}^{n}Y_j=\frac1{v'}
+\]
 \vspace{0.1cm}
 Therefore, minimizing the upper bound \(v'\) is equivalent to maximizing:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}Y_j\)}
-
+\[
+\sum_{j=1}^{n}Y_j
+\]
 After solving the optimization system, the optimal mixed strategy probabilities of Player B are recovered by:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle y_j=
+\[
+y_j=
 \frac{Y_j}
-{\sum_{k=1}^{n}Y_k}\)}
-
+{\sum_{k=1}^{n}Y_k}
+\]
 \vspace{0.15cm}
 Through the linear programming formulation, the matrix game problem can be transformed into a linear optimization system that can be solved efficiently by computers, even for large matrices without saddle points.
 
@@ -771,18 +766,17 @@ A2 & c & d
 In this matrix, the rows represent the strategies of Player A, while the columns represent the strategies of Player B. For a \(2 \times 2\) game, the algorithm first checks whether a saddle point exists by comparing the maximin and minimax values. If a saddle point exists, the optimal pure strategies and the value of the game can be determined directly. If no saddle point exists, both players need to use mixed strategies.
 
 Assume that Player A chooses the first row with probability \(p\) and the second row with probability \(1-p\). Player A chooses \(p\) so that Player B becomes indifferent between choosing the first column and the second column:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle pa + (1-p)c = pb + (1-p)d \)}
-
+\[
+pa + (1-p)c = pb + (1-p)d
+\]
 Solving this equation gives:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle p = \frac{d-c}{a-b-c+d} \)}
-
+\[
+p = \frac{d-c}{a-b-c+d}
+\]
 \vspace{0.15cm}
 Therefore, the mixed strategy of Player A is:
 \vspace{0.15cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle  
+\[
 x =
 \begingroup
 \renewcommand{\arraystretch}{0.7}
@@ -791,22 +785,20 @@ p \\
 1-p
 \end{bmatrix}
 \endgroup
-\)}
-
+\]
 \vspace{0.15cm}
 Similarly, assume that Player B chooses the first column with probability \(q\) and the second column with probability \(1-q\). Player B chooses \(q\) so that Player A becomes indifferent between choosing the first row and the second row:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle qa + (1-q)b = qc + (1-q)d\)}
-
+\[
+qa + (1-q)b = qc + (1-q)d
+\]
 Solving this equation gives:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle q = \frac{d-b}{a-b-c+d}\)}
-
+\[
+q = \frac{d-b}{a-b-c+d}
+\]
 \vspace{0.15cm}
 Therefore, the mixed strategy of Player B is:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle 
+\[
 y =
 \begingroup
 \renewcommand{\arraystretch}{0.7}
@@ -815,24 +807,22 @@ q \\
 1-q
 \end{bmatrix}
 \endgroup
-\)}
-
+\]
 The value of the game can be computed by:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v = x^T A y \)}
-
+\[
+v = x^T A y
+\]
 For the \(2 \times 2\) case, this value can also be calculated directly using the formula:
 \vspace{0.1cm}
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v = \frac{ad-bc}{a-b-c+d} \)   \cite{thie2008}}
-
-
+\[
+v = \frac{ad-bc}{a-b-c+d}
+\] \cite{thie2008}
 \subsubsection{Algorithm for General \(m \times n\) Matrix Games}
 
 The direct formula used for the \(2 \times 2\) case is not suitable for matrix games with larger dimensions. Therefore, linear programming is required. In the general case, Player A may have \(m\) strategies and Player B may have \(n\) strategies. The payoff matrix can be written as:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle A = (a_{ij})_{m \times n} \)}
-
+\[
+A = (a_{ij})_{m \times n}
+\]
 The general algorithm still follows the same initial structure as the \(2 \times 2\) case. First, the minimum value of each row, the maximum value of each column, the maximin value, and the minimax value are computed. Then, the algorithm checks whether the game has a saddle point.
 
 If the maximin value is equal to the minimax value, the game has a saddle point and can be solved using pure strategies. If the maximin value is different from the minimax value, the game has no saddle point. For a general \(m \times n\) game, the optimal mixed strategies are found using linear programming.
@@ -898,20 +888,19 @@ In general, when Country A focuses on an area that Country B does not protect, t
 For combined strategies involving two areas, the payoff depends on how much the attack scope of Country A overlaps with the defense scope of Country B. If Country B leaves important pillars such as Alpha or Bravo unprotected, Country A can obtain a high payoff. If both countries allocate resources to corresponding areas, the payoff tends to move closer to $0$, representing a relative balance. Therefore, the matrix does not simply describe winning or losing, but also reflects the trade-off between policy effectiveness, resource dispersion, and the predictability of the opponent's actions.
 
 The computational results show that the maximin value is $0$ and the minimax value is $3$, so the game has no saddle point. This means that neither country should use a fixed pure strategy, because the opponent can predict it and exploit the remaining policy gaps. The optimal mixed strategy of Country A is
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle x=[0,\ 0,\ 0,\ 0.4167,\ 0.3333,\ 0.25] \)}
-
+\[
+x=[0,\ 0,\ 0,\ 0.4167,\ 0.3333,\ 0.25]
+\]
 This means that Country A should not focus on a single area. Instead, it should prioritize combined strategies: Alpha-Bravo with probability $41.67\%$, Alpha-Charlie with probability $33.33\%$, and Bravo-Charlie with probability $25\%$. Alpha-Bravo has the highest probability because high technology and supply chains are the two most strategically valuable areas.
 
 The optimal mixed strategy of Country B is
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle y=[0,\ 0,\ 0,\ 0.25,\ 0.3333,\ 0.4167] \)}
-
-
+\[
+y=[0,\ 0,\ 0,\ 0.25,\ 0.3333,\ 0.4167]
+\]
 This means that Country B should also avoid defending only one fixed pillar. Instead, it should distribute its defensive resources among Alpha-Bravo, Alpha-Charlie, and Bravo-Charlie. The value of the game is
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=1.0833 \)}
-
+\[
+v=1.0833
+\]
 This indicates that Country A has a slight long-term advantage if it allocates its policy resources properly. From an economic and social perspective, the model shows that an effective strategy is not to concentrate completely on one pillar, but to flexibly allocate resources among technology, supply chains, and social influence in order to optimize benefits and reduce policy risks.
 
 \subsubsection{Sidewalk Encroachment Control in Urban Areas}
@@ -1301,25 +1290,25 @@ minimax = min(colMax);
 \end{lstlisting}
 
 The program checks whether the difference between the maximin and minimax values is smaller than a tolerance value:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle |maximin-minimax|<tol\)}
-
+\[
+|maximin-minimax|<tol
+\]
 If this condition is true, the game contains a saddle point and pure strategies are assigned. Probability \(1\) is assigned to the optimal row and optimal column, while all other strategies receive probability \(0\). This produces deterministic optimal strategies.
 
 \paragraph{2x2 Mixed Strategy Solver}
 
 For non-saddle 2x2 games, the program uses direct algebraic formulas instead of linear programming. The mixed strategy probability for Player A is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle p=\frac{d-c}{a-b-c+d}\)}
-
+\[
+p=\frac{d-c}{a-b-c+d}
+\]
 The mixed strategy probability for Player B is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle q=\frac{d-b}{a-b-c+d}\)}
-
+\[
+q=\frac{d-b}{a-b-c+d}
+\]
 The value of the game is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=\frac{ad-bc}{a-b-c+d}\) \cite{murthy2007}} 
-
+\[
+v=\frac{ad-bc}{a-b-c+d}
+\] \cite{murthy2007}
 This method provides fast computation, exact analytical solutions, and reduced computational cost for standard 2x2 games.
 
 \paragraph{General \(N \times M\) Linear Programming Solver}

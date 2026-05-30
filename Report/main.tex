@@ -347,11 +347,6 @@ Nguyễn Phương Tâm Anh
 \phantomsection
 \addcontentsline{toc}{section}{List of Figures}
 \listoffigures
-
-\vspace{0.6cm}
-\phantomsection
-\addcontentsline{toc}{section}{List of Tables}
-\listoftables
 \endgroup
 % =====================================================
 % PAGE 6: INTRODUCTION
@@ -556,9 +551,11 @@ Here:
     \item \(v'\): shifted game value
 \end{itemize}
 
-After solving, the original game value will be recovered by:
+After solving, the equation: 
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=v'-c \)  \cite{murthy2007}}
+\noindent\makebox[\linewidth][c]{\(\displaystyle v=v'-c \)  }
+
+will recover the original game value \cite{murthy2007}.
 \subsubsection{Linear Programming Model for Player A}
 
 Player A must determine the mixed strategy vector:
@@ -717,9 +714,9 @@ The transformation follows the same logic as Player A's formulation. The normali
 \noindent\makebox[\linewidth][c]{\(\displaystyle \sum_{j=1}^{n}y_j=1\)}
 
 The substitution is:
-
-\noindent\makebox[\linewidth][c]{\(\displaystyle y_j=v'Y_j\)}
-
+\[
+y_j=v'Y_j
+\]
 Thus, we obtain:
 
 \noindent\makebox[\linewidth][c]{\(\displaystyle v'\sum_{j=1}^{n}Y_j=1\)}
@@ -1321,7 +1318,7 @@ The mixed strategy probability for Player B is:
 
 The value of the game is:
 
-\noindent\makebox[\linewidth][c]{\(\displaystyle v=\frac{ad-bc}{a-b-c+d}\)} \cite{murthy2007}
+\noindent\makebox[\linewidth][c]{\(\displaystyle v=\frac{ad-bc}{a-b-c+d}\) \cite{murthy2007}} 
 
 This method provides fast computation, exact analytical solutions, and reduced computational cost for standard 2x2 games.
 

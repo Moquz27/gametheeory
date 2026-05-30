@@ -1,0 +1,158 @@
+\subsection{Technical description}
+
+The developed system is a MATLAB-based Graphical User Interface (GUI) application designed to solve \(N \times M\) zero-sum matrix games. The application allows users to create payoff matrices, compute maximin and minimax values, identify saddle points, compute optimal pure or mixed strategies, calculate the value of the game, and visualize the resulting strategies and payoff matrix. The program is implemented in MATLAB using GUI components, matrix operations, numerical optimization, and plotting functions.
+
+\paragraph{Programming Language Used:}
+
+The programming language used in this project is MATLAB. It is used for numerical computation, matrix manipulation, GUI development, optimization, and data visualization.
+
+\paragraph{Main Libraries and Built-in Functions:}
+
+The application interface is constructed using MATLAB GUI components, including \texttt{uifigure}, \texttt{uibutton}, \texttt{uitable}, \texttt{uieditfield}, \texttt{uilabel}, and \texttt{uitextarea}. The solving process uses built-in functions such as \texttt{min}, \texttt{max}, \texttt{find}, \texttt{size}, \texttt{zeros}, \texttt{abs}, \texttt{isfinite}, \texttt{linprog}, and \texttt{optimoptions}. The visualization module uses \texttt{bar}, \texttt{imagesc}, \texttt{subplot}, and \texttt{colorbar}.
+
+\paragraph{Main GUI Function - \texttt{LN\_AGB\_GT():}}
+
+This is the primary controller function of the application. It initializes the GUI window, creates the interface, accepts matrix dimensions from the user, generates editable payoff matrices, executes the solving algorithm, displays textual results, and launches graphical visualizations. The output area displays the payoff matrix, maximin value, minimax value, saddle point status, saddle point position list when available, mixed strategies, game value, and expected payoff.
+
+\paragraph{Matrix Creation Module - \texttt{createMatrix():}}
+
+This callback function reads the requested matrix dimensions, rounds them to integer values, validates that both values are finite and at least \(2\), and then creates a zero payoff matrix of the requested size.
+
+\begin{lstlisting}[style=code]
+r=round(rowField.Value);
+c=round(colField.Value);
+if ~isfinite(r)||~isfinite(c)||r<2||c<2
+    uialert(fig,'Matrix must be at least 2x2.','Invalid Size');
+    return;
+end
+matrixTable.Data=zeros(r,c);
+\end{lstlisting}
+
+\paragraph{Solver Module - \texttt{solveGame():}}
+
+This module retrieves the payoff matrix from the GUI table and calls the core solver. If the game has saddle points, the module formats all detected saddle point positions for display. The \texttt{try-catch} structure is used to prevent the GUI from crashing when invalid input, degenerate games, or optimization failures occur.
+
+\begin{lstlisting}[style=code]
+A=matrixTable.Data;
+currentResult=mainGameSolver(A);
+\end{lstlisting}
+
+\paragraph{Core Algorithm Module - \texttt{mainGameSolver(A):}}
+
+The core solver first validates the payoff matrix. The matrix must be numeric, nonempty, two-dimensional, at least \(2 \times 2\), and contain only finite values.
+
+\begin{lstlisting}[style=code]
+if ~isnumeric(A)||~ismatrix(A)||isempty(A)
+    error('Payoff matrix must be a numeric matrix.');
+end
+if any(~isfinite(A(:)))
+    error('Payoff matrix must contain only finite values.');
+end
+[m,n]=size(A);
+if m<2||n<2
+    error('Matrix must be at least 2x2.');
+end
+\end{lstlisting}
+
+The solver computes the row minimums, column maximums, maximin value, and minimax value.
+
+\begin{lstlisting}[style=code]
+rowMin=min(A,[],2);
+maximin=max(rowMin);
+colMax=max(A,[],1);
+minimax=min(colMax);
+\end{lstlisting}
+
+To reduce floating-point sensitivity, the tolerance is scaled by the magnitude of the payoff matrix.
+
+\begin{lstlisting}[style=code]
+tol=1e-8*max(1,max(abs(A(:))));
+\end{lstlisting}
+
+\paragraph{Saddle Point Detection:}
+
+The program treats the game as having a saddle point when the maximin and minimax values are equal within the scaled tolerance. It then identifies all valid saddle point positions by checking both the row-minimum condition and the column-maximum condition. This avoids selecting a wrong matrix entry that merely has the same payoff value.
+
+\begin{lstlisting}[style=code]
+saddleRows=find(abs(rowMin-maximin)<=tol);
+saddleCols=find(abs(colMax-minimax)<=tol);
+saddleMask=false(m,n);
+saddleMask(saddleRows,saddleCols)=true;
+[saddleR,saddleC]=find(saddleMask&abs(A-maximin)<=tol);
+saddlePositions=[saddleR saddleC];
+\end{lstlisting}
+
+The program stores all detected saddle point positions in \texttt{result.saddlePositions}. A representative pure strategy is assigned using the first valid saddle point in the list.
+
+\paragraph{2x2 Mixed Strategy Solver:}
+
+For non-saddle \(2 \times 2\) games, the program uses direct algebraic formulas. Before using the formulas, it checks whether the denominator is close to zero using a scale-dependent threshold.
+
+\begin{lstlisting}[style=code]
+den=a-b-c+d;
+denTol=1e-8*max(1,abs(a)+abs(b)+abs(c)+abs(d));
+if abs(den)<=denTol
+    error('Degenerate 2x2 game.');
+end
+\end{lstlisting}
+
+The mixed strategy probabilities are then computed and validated with a small probability tolerance. Values that are only slightly outside \([0,1]\) because of floating-point error are clamped back into the valid range.
+
+\begin{lstlisting}[style=code]
+p=(d-c)/den;
+q=(d-b)/den;
+probTol=1e-8;
+if p<-probTol||p>1+probTol||q<-probTol||q>1+probTol
+    error('Invalid mixed strategy probabilities.');
+end
+p=max(0,min(1,p));
+q=max(0,min(1,q));
+\end{lstlisting}
+
+\paragraph{General \(N \times M\) Linear Programming Solver:}
+
+For larger non-saddle games, the payoff matrix is shifted so that the transformed matrix is positive. The shifted matrix is then used to construct the linear programming models for Player A and Player B.
+
+\begin{lstlisting}[style=code]
+shift=abs(min(A(:)))+1;
+A1=A+shift;
+\end{lstlisting}
+
+Player A's strategy is computed by minimizing the sum of transformed variables under lower-bound payoff constraints. Player B's strategy is computed by maximizing the sum of transformed variables through the equivalent minimization of a negative objective. The program stores and checks \texttt{exitflag} from \texttt{linprog} to ensure that the optimization successfully converged.
+
+\begin{lstlisting}[style=code]
+[x,~,exitflagA]=linprog(fA,-transpose(A1),-ones(n,1),[],[],zeros(m,1),[],opt);
+if isempty(x)||exitflagA<=0
+    error('Unable to solve Player A strategy.');
+end
+[y,~,exitflagB]=linprog(fB,A1,ones(m,1),[],[],zeros(n,1),[],opt);
+if isempty(y)||exitflagB<=0
+    error('Unable to solve Player B strategy.');
+end
+\end{lstlisting}
+
+\paragraph{Probability Normalization and Game Value:}
+
+After optimization, the transformed variables are converted back into probability vectors. The shifted game values from Player A and Player B are averaged, and the shift is subtracted to recover the original game value.
+
+\begin{lstlisting}[style=code]
+valueA=1/sum(x);
+strategyA=x*valueA;
+valueB=1/sum(y);
+strategyB=y*valueB;
+v=((valueA+valueB)/2)-shift;
+\end{lstlisting}
+
+The expected payoff is computed directly from the original payoff matrix.
+
+\begin{lstlisting}[style=code]
+expectedValue=transpose(strategyA)*A*strategyB;
+\end{lstlisting}
+
+\paragraph{Visualization Module - \texttt{plotStrategies(result):}}
+
+The visualization module generates bar charts for Player A's and Player B's strategy distributions and a heatmap for the payoff matrix. This helps users inspect the optimal strategy probabilities and the payoff structure of the game.
+
+\paragraph{System Characteristics:}
+
+The developed application provides interactive GUI-based operation, support for arbitrary \(N \times M\) matrices, pure and mixed strategy computation, multiple saddle point detection, input validation, scale-aware numerical tolerance, degenerate \(2 \times 2\) game detection, \texttt{linprog} convergence checking, graphical result visualization, and exception handling.
